@@ -1,0 +1,29 @@
+{
+  "name": "spotify_jquery_only-master",
+  "version": "1.0.0",
+  "description": "This is the codebase used in the following tutorial: https://youtu.be/d0FFlTeyAY8",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "jquery": "^3.6.0",
+    "mongoose": "^5.12.13",
+    "path": "^0.12.7",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afeefaz/spotify_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afeefaz/spotify_api/issues"
+  },
+  "homepage": "https://github.com/afeefaz/spotify_api#readme"
+}
