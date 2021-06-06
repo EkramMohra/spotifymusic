@@ -17,21 +17,11 @@
         <i id='search' class="fas fa-search fa-5x"></i>
     </div>
 
-    <!-- <script id="songs-template" type="text/x-handlebars-template">
-        {{#each city}}
-            <div class="city">
-                <button class="edit"><i></i></button>
-                <div>
-                    <span>{{temperature}}</span>
-                    <span>{{name}}</span>
-                </div>
-                <div>
-                    <img src="" onError="this.onerror=null;this.src='.....'" height="350" width="245"/>
-                    <span>{{condition}}</span>
-                </div>
-            </div>
+    <script id="songs-template" type="text/x-handlebars-template">
+        {{#each sourceSong}}
+        <div class='song'><iframe src={{this}} frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></div>
         {{/each}}
-  </script> -->
+  </script>
 
     <div class="container">
 

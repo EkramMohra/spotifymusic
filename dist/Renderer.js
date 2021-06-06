@@ -1,12 +1,12 @@
 class Renderer {
     constructor() {}
 
-    render(data) {
+    render(sourceSong) {
         $('.container').empty();
 
-        const source = $("#players-template").html()
+        const source = $("#songs-template").html()
         const template = Handlebars.compile(source)
-        const newHTML = template({player: data})
+        const newHTML = template({sourceSong})
         $('.container').append(newHTML)
     }
 }
