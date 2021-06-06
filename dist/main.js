@@ -28,7 +28,6 @@ if(accessToken == null || accessToken == "" || accessToken == undefined){
 
 $('.search-container').on('click', '#search', function() {
     let val = $('.input').val()
-    let search_query = encodeURI(val);
 
     $.get(`search/${val}/${accessToken}`, (data) =>  {
           // Load our songs from Spotify into our page
