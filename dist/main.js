@@ -15,7 +15,7 @@ const getUrlParameter = (sParam) => {
 }
 const accessToken = getUrlParameter('access_token');
 
-let client_id = '30264da956bb4d909269af1e165230a1';
+let client_id = 'f404aaa4bcd84660bd5acb02c7cee536';
 let redirect_uri = 'https://spotify-musicplayer.herokuapp.com';
 
 const redirect = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}`;
@@ -30,13 +30,13 @@ $('.search-container').on('click', '#search', function() {
     let val = $('.input').val()
     let search_query = encodeURI(val);
 
-    $.get(`search/${search_query}/${accessToken}`, (data) => {
+    $.get(`search/${search_query}/${accessToken}`, (data) =>  {
           // Load our songs from Spotify into our page
           let num_of_tracks = data.tracks.items.length;
           let count = 0;
           const max_songs = 12;
           let Sources = [];
-          
+
           while(count < max_songs && count < num_of_tracks){
             let id = data.tracks.items[count].id;
             let src_str = `https://open.spotify.com/embed/track/${id}`;
