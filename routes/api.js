@@ -3,10 +3,10 @@ const router = express.Router()
 const request = require('request')
 
 router.get('/search/:song/:at', function(req, res) {
-    let artistName =  req.params.song
+    let song =  req.params.song
     let at = req.params.at
 
-    request(`https://api.spotify.com/v1/search?q=${artistName}&type=track&token_type=Bearer&access_token=${at}`,function(err, response, data) {
+    request(`https://api.spotify.com/v1/search?q=${song}&type=track&token_type=Bearer&access_token=${at}`,function(err, response, data) {
             res.send(JSON.parse(data));
         }
       )

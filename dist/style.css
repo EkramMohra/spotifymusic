@@ -30,3 +30,22 @@ body {
 .city-name {
     margin-top: 70px;
 }
+.song {
+    position: relative;
+}
+.buttons {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    bottom: 10px;
+    left: 10px;
+    /* width: 20vw; */
+}
+#addToDB, #delfromDB {
+    color: white;
+    cursor: pointer;
+}
+iframe {
+    position: relative;
+}
