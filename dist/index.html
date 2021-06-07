@@ -12,33 +12,56 @@
 </head>
 
 <body>
+
     <div class="search-container">
-        <input class="input"  type="text" placeholder="Song/Artist Name"></input>
+        <input class="input" type="text" placeholder="Song/Artist Name"></input>
         <i id='search' class="fas fa-search fa-3x"></i>
+        <i id="dark" class="fas fa-toggle-off fa-2x"> light/dark </i>
         <i id="newRelease" class="fas fa-toggle-off fa-2x"> New releases</i>
     </div>
 
+    <div id="menu-outer">
+        <div class="table">
+            <ul id="horizontal-list">
+                <li>
+                    <i id="general"> General </i>
+                </li>
+                <li>
+                    <i id="soul">Soul</i>
+                </li>
+                <li>
+                    <i id="pop"> Pop </i>
+                </li>
+                <li>
+                    <i id="rock"> Rock</i>
+                </li>
+            </ul>
+        </div>
+    </div>
     <script id="songs-template" type="text/x-handlebars-template">
         {{#each sourceSong}}
         <div class='song'>
-            <iframe src={{src}} id={{id}} frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            <iframe class="iframe" src={{src}} id={{id}} frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
             <div class="buttons">
                 {{#if isAdded}}
-                <i id="delfromDB" class="far fa-trash-alt fa-2x"></i>
-                {{else}}
-                <i id="addToDB" class="fas fa-plus fa-2x"></i>
-                {{/if}}
+                <i id="delfromDB" class="far fa-trash-alt fa-2x"></i> {{else}}
+                <i id="addToDB" class="fas fa-plus fa-2x"></i> {{/if}}
+                <i id="getLyrics" class="fas fa-book-open fa-2x"></i>
             </div>
         </div>
         {{/each}}
-  </script>
+    </script>
 
     <div class="content">
         <div class="container"></div>
         <div class="newReleases"></div>
     </div>
 
+    <div id='lyrics' class="lyrics"></div>
+
+
     <script src="Renderer.js"></script>
     <script src="main.js"></script>
 </body>
+
 </html>

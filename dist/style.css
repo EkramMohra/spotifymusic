@@ -1,54 +1,70 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     background-color: black;
     color: white;
 }
+
 .search-container {
     display: grid;
-    grid-template-columns: 50% 25% 25%;
+    grid-template-columns: 50% 20% 20% 7%;
     grid-gap: 10px;
     /* margin: 0 550px; */
 }
-.search-container > i{
+
+#getLyrics {
     cursor: pointer;
 }
+
+.search-container>i {
+    cursor: pointer;
+}
+
 .input {
     font-size: 2rem;
     margin-left: 50px;
 }
+
 #newRelease {
     text-align: end;
     margin-right: 30px;
 }
+
 .content {
     margin: 30px;
     display: grid;
     grid-template-columns: 70% 30%;
 }
-  .container {
+
+.container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
     max-height: 100vh;
 }
+
 .newReleases {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 .city {
     display: flex;
-    gap:20px;
+    gap: 20px;
     font-size: 3rem;
     /* width: 100%; */
 }
+
 .city-name {
     margin-top: 70px;
 }
+
 .song {
     position: relative;
 }
+
 .buttons {
     position: absolute;
     display: flex;
@@ -58,10 +74,38 @@ body {
     left: 10px;
     /* width: 20vw; */
 }
-#addToDB, #delfromDB {
+
+#addToDB,
+#delfromDB {
     color: white;
     cursor: pointer;
 }
-iframe {
+
+.iframe {
     position: relative;
+}
+
+#menu-outer {
+    height: 84px;
+    background: repeat-x;
+}
+
+.table {
+    display: table;
+    /* Allow the centering to work */
+    margin: 0 auto;
+}
+
+ul#horizontal-list {
+    min-width: 696px;
+    list-style: none;
+    padding-top: 20px;
+}
+
+ul#horizontal-list li {
+    display: inline;
+    border: 1px rgb(230, 205, 161) solid;
+    margin: 15px;
+    padding: 15px;
+    cursor: pointer;
 }
