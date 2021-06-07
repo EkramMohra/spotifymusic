@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const request = require('request')
+const SongList = require('../Models/Playlist')
 
 router.get('/search/:song/:at', function(req, res) {
     let song =  req.params.song
@@ -12,18 +13,28 @@ router.get('/search/:song/:at', function(req, res) {
       )
 })
 
-// router.get('/city', function (req, res) {
-//     Person.find({}, function (err, people) {
-//         res.send(people)
-//     })
-// })
+router.get('/isAdded/:id', function (req, res) {
+    let id = req.params.id
+    SongList.find({id:id}, function (err, song) {
+        if(song.length>0)
+        res.send(true)
+        else
+        res.send(false)
+    })
+})
 
-// router.post('/city', function (req, res){
-//     let p = new Person(req.body)
-//     p.save()
-//     res.send('ok')
-// })
+router.post('/saveSong', function (req, res){
+    let song = new SongList(req.body)
+    song.save()
+    res.send('ok')
+})
 
+router.delete('/delFromDb/:id', function (req, res){
+    let songId = req.params.id
+    SongList.remove({id:songId}, function(err, song){
+        res.send('deleted')
+    });
+})
 // router.put('/city/:id', function(req, res){
 //     console.log(req.params.id);
 //     Person.findByIdAndUpdate(req.params.id, { age: 80 }, { new: true }, function (err, person) {

@@ -1,14 +1,13 @@
 const express = require('express')
 const path = require('path')
 const api = require('./routes/api')
-// const mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
 const app = express()
 const port = process.env.PORT || 3500
 
 // Mongoose setup
-
-// mongoose.connect('mongodb://localhost/peopleDB', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/SongList', { useNewUrlParser: true })
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
