@@ -23,6 +23,14 @@ router.get('/isAdded/:id', function (req, res) {
     })
 })
 
+router.get('/new/:at', function(req, res){
+    let at = req.params.at
+    request(`https://api.spotify.com/v1/browse/new-releases?token_type=Bearer&access_token=${at}`,function(err, response, data) {
+            res.send(JSON.parse(data));
+        }
+      )
+})
+
 router.post('/saveSong', function (req, res){
     let song = new SongList(req.body)
     song.save()

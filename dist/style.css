@@ -2,24 +2,40 @@
     box-sizing: border-box;
 }
 body {
-    background-color: cornflowerblue;
+    background-color: black;
+    color: white;
 }
 .search-container {
     display: grid;
-    grid-template-columns: 95% 5%;
+    grid-template-columns: 50% 25% 25%;
     grid-gap: 10px;
-    margin: 0 20px;
+    /* margin: 0 550px; */
 }
 .search-container > i{
     cursor: pointer;
 }
 .input {
-    font-size: 3rem;
+    font-size: 2rem;
+    margin-left: 50px;
+}
+#newRelease {
+    text-align: end;
+    margin-right: 30px;
+}
+.content {
+    margin: 30px;
+    display: grid;
+    grid-template-columns: 70% 30%;
 }
   .container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
+    max-height: 100vh;
+}
+.newReleases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 .city {
     display: flex;
@@ -38,7 +54,7 @@ body {
     display: flex;
     flex-direction: row;
     gap: 20px;
-    bottom: 10px;
+    top: 110px;
     left: 10px;
     /* width: 20vw; */
 }

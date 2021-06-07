@@ -17,7 +17,7 @@ const getUrlParameter = (sParam) => {
 }
 const accessToken = getUrlParameter('access_token');
 
-let client_id = 'b70e947c7333404b8023de1203d701b7';
+let client_id = '678866aa4afd4bb28fe2461b0dc6effe';
 let redirect_uri = 'http://localhost:3500';
 
 const redirect = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}`;
@@ -36,7 +36,7 @@ $('.search-container').on('click', '#search', function() {
           // Load our songs from Spotify into our page
           let num_of_tracks = data.tracks.items.length;
           let count = 0;
-          const max_songs = 12;
+          const max_songs = 15;
           Sources = []
 
           while(count < max_songs && count < num_of_tracks){
@@ -57,27 +57,87 @@ $('.search-container').on('click', '#search', function() {
             // Sources.push({id:id, artist:artistName, songName:songName, src:src_str,isAdded: isAdded});
             count++;
           }
-          render.render(Sources)
+          render.render(Sources, '.container')
     })
 })
 
-$('div').on('click', '#addToDB', function() {
-    let id = $(this).closest('.song').find('iframe').data().id
-    let song = Sources.find(element => element.id === id)
-    let check = song.isAdded
+let newR = []
+$('#newRelease').on('click', function() {
+    let on = 'fas fa-toggle-on fa-2x'
+    let off = 'fas fa-toggle-off fa-2x'
+    let c = $(this).attr('class')
+    if(c === on){
+        $(this).removeClass()
+        $(this).addClass('fas fa-toggle-off fa-2x') 
+        render.render([], '.newReleases')
+    }else{
+        $(this).removeClass()
+        $(this).addClass('fas fa-toggle-on fa-2x')
+        $.get(`new/${accessToken}`, async(data) =>  {
+            let num_of_tracks = data.albums.items.length;
+            let count = 0;
+            let id = data.albums.items[count].id;
+            let src_str = `https://open.spotify.com/embed/album/${id}`
+            newR = []
+    
+            while(count < num_of_tracks){
+                let id = data.albums.items[count].id;
+                let songName = data.albums.items[count].name
+                let artistName = data.albums.items[count].artists[0].name
+                let src_str = `https://open.spotify.com/embed/album/${id}`
+                let isAdded = false
+                await $.get(`isAdded/${id}`, function(bool){
+                    if(bool)
+                    {
+                        newR.push({id:id, artist:artistName, songName:songName, src:src_str,isAdded: true});
+                    }
+                    else{
+                         newR.push({id:id, artist:artistName, songName:songName, src:src_str,isAdded: false});
+                    }
+                })
+                // newR.push({id:id, artist:artistName, songName:songName, src:src_str});
+                count++;
+            }
+            render.render(newR, '.newReleases')
+        }) 
+    }
+})
 
-    if(!check){
-        $.post("/saveSong", song, function(data){
-            Sources.find(element => element.id === id).isAdded = true
-            render.render(Sources)
-        })
+$('div').on('click', '#addToDB', function() {
+    let divName = $(this).closest('.song')
+    let id=divName.find('iframe').attr("id")
+    console.log(divName.parent());
+    if(divName.parent().attr('class')==='container'){
+        let song = Sources.find(element => element.id === id)
+        let check = song.isAdded
+        if(!check){
+            $.post("/saveSong", song, function(data){
+                Sources.find(element => element.id === id).isAdded = true
+                // render.singleRender(id)
+                render.render(Sources, '.container');
+            })
+        }
+    }
+    else{
+        let song = newR.find(element => element.id === id)
+        let check = song.isAdded
+        if(!check){
+            $.post("/saveSong", song, function(data){
+                newR.find(element => element.id === id).isAdded = true
+                // render.singleRender(id)
+                render.render(newR, '.newReleases');
+            })
+        }
     }
 })
 
 $('div').on('click', '#delfromDB', function() {
-    let id = $(this).closest('.song').find('iframe').data().id
-    let song = Sources.find(element => element.id === id)
-    let check = song.isAdded
+    let divName = $(this).closest('.song')
+    let id=divName.find('iframe').attr("id")
+
+if(divName.parent().attr('class')==='container'){
+        let song = Sources.find(element => element.id === id)
+        let check = song.isAdded
 
     if(check){
         $.ajax({
@@ -86,8 +146,24 @@ $('div').on('click', '#delfromDB', function() {
             success:function (result){
                 console.log('item deleted');
                 Sources.find(element => element.id === id).isAdded = false
-                render.render(Sources);
+                render.render(Sources, '.container');
             }
         })
     }
+}
+else{
+    let song = newR.find(element => element.id === id)
+    let check = song.isAdded
+    if(check){
+        $.ajax({
+            method:"delete",
+            url:'/delFromDb/'+id,
+            success:function (result){
+                console.log('item deleted');
+                newR.find(element => element.id === id).isAdded = false
+                render.render(newR, '.newReleases');
+            }
+        })
+    }
+}
 })
