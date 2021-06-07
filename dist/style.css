@@ -7,8 +7,7 @@ body {
 }
 .search-container {
     display: grid;
-    grid-template-columns: 50% 25% 25%;
-    grid-gap: 10px;
+    grid-template-columns: 45% 20% 20% 7%;
     /* margin: 0 550px; */
 }
 .search-container > i{
@@ -17,10 +16,11 @@ body {
 .input {
     font-size: 2rem;
     margin-left: 50px;
+    margin-right: 10px;
 }
 #newRelease {
     text-align: end;
-    margin-right: 30px;
+    /* margin-right: 30px; */
 }
 .content {
     margin: 30px;
@@ -58,10 +58,35 @@ body {
     left: 10px;
     /* width: 20vw; */
 }
-#addToDB, #delfromDB {
+.buttons > i{
     color: white;
     cursor: pointer;
 }
 iframe {
     position: relative;
+}
+
+#menu-outer {
+    height: 84px;
+    background: repeat-x;
+}
+
+.table {
+    display: table;
+    /* Allow the centering to work */
+    margin: 0 auto;
+}
+
+ul#horizontal-list {
+    min-width: 696px;
+    list-style: none;
+    padding-top: 20px;
+}
+
+ul#horizontal-list li {
+    display: inline;
+    border: 1px rgb(230, 205, 161) solid;
+    margin: 15px;
+    padding: 15px;
+    cursor: pointer;
 }

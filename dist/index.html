@@ -15,8 +15,20 @@
     <div class="search-container">
         <input class="input"  type="text" placeholder="Song/Artist Name"></input>
         <i id='search' class="fas fa-search fa-3x"></i>
+        <i id="dark" class="fas fa-adjust fa-2x"> light/dark </i>
         <i id="newRelease" class="fas fa-toggle-off fa-2x"> New releases</i>
     </div>
+    <div id="menu-outer">
+        <div class="table">
+            <ul id="horizontal-list">
+                <li id="general">hiphop</li>
+                <li id="soul">soul</li>
+                <li id="pop">pop</li>
+                <li id="rock">rock</li>
+            </ul>
+        </div>
+    </div>
+
 
     <script id="songs-template" type="text/x-handlebars-template">
         {{#each sourceSong}}
@@ -33,11 +45,13 @@
         {{/each}}
   </script>
 
+  
+
     <div class="content">
-        <div class="container"></div>
+        <div class="container"><button class="myplaylist">My Playlist</button></div>
         <div class="newReleases"></div>
     </div>
-
+    <div class="lyrics"></div>
     <script src="Renderer.js"></script>
     <script src="main.js"></script>
 </body>

@@ -4,9 +4,11 @@
   "description": "This is the codebase used in the following tutorial: https://youtu.be/d0FFlTeyAY8",
   "main": "server.js",
   "dependencies": {
+    "apiseeds-lyrics": "^2.0.0",
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
     "jquery": "^3.6.0",
+    "lyric-get": "^1.0.3",
     "mongoose": "^5.12.13",
     "path": "^0.12.7",
     "request": "^2.88.2"

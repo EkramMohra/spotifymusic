@@ -10,16 +10,8 @@ class Renderer {
         $(target).append(newHTML)
     }
     singleRender(elemID){
-        let con = $(`#${elemID}`).closest('.song').html()
-        let t =  $(`#${elemID}`).closest('.song')
-        // $(`#${elemID}`).closest('.song').html("")
-        // t.html(con)
-        let src  = t.attr(src);
-        let id = t.attr("i")
-        // $(`#${elemID}`).closest('.song').append(`#${elemID}`)
-
-        // var container = $('.song')
-        // var content = container.innerHTML;
-        // container.innerHTML= content; 
+        console.log(elemID);
+        $(elemID).css("display","none")
+        $(elemID).css("display","block")
     }
 }

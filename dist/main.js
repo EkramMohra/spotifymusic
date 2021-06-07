@@ -1,10 +1,7 @@
-// const { deleteMany } = require("../Models/Playlist");
-
 const render = new Renderer()
 
-//extract access_token from url
 const getUrlParameter = (sParam) => {
-    let sPageURL = window.location.search.substring(1),////substring will take everything after the https link and split the #/&
+    let sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL != undefined && sPageURL.length > 0 ? sPageURL.split('#') : [], sParameterName, i;
     let split_str = window.location.href.length > 0 ? window.location.href.split('#') : [];
     sURLVariables = split_str != undefined && split_str.length > 1 && split_str[1].length > 0 ? split_str[1].split('&') : [];
@@ -14,15 +11,14 @@ const getUrlParameter = (sParam) => {
             return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
         }
     }
-}
+}   
 const accessToken = getUrlParameter('access_token');
 
-let client_id = '678866aa4afd4bb28fe2461b0dc6effe';
+let client_id = '40ad47ff664944cbb3ebcbca122685bf';
 let redirect_uri = 'http://localhost:3500';
 
 const redirect = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}`;
 
-// Don't authorize if we have an access token already
 if(accessToken == null || accessToken == "" || accessToken == undefined){
     window.location.replace(redirect);
 }
@@ -33,7 +29,6 @@ $('.search-container').on('click', '#search', function() {
     let val = $('.input').val()
 
     $.get(`search/${val}/${accessToken}`,async (data) =>  {
-          // Load our songs from Spotify into our page
           let num_of_tracks = data.tracks.items.length;
           let count = 0;
           const max_songs = 15;
@@ -54,7 +49,6 @@ $('.search-container').on('click', '#search', function() {
                      Sources.push({id:id, artist:artistName, songName:songName, src:src_str,isAdded: false});
                 }
             })
-            // Sources.push({id:id, artist:artistName, songName:songName, src:src_str,isAdded: isAdded});
             count++;
           }
           render.render(Sources, '.container')
@@ -95,7 +89,6 @@ $('#newRelease').on('click', function() {
                          newR.push({id:id, artist:artistName, songName:songName, src:src_str,isAdded: false});
                     }
                 })
-                // newR.push({id:id, artist:artistName, songName:songName, src:src_str});
                 count++;
             }
             render.render(newR, '.newReleases')
@@ -103,17 +96,48 @@ $('#newRelease').on('click', function() {
     }
 })
 
+
+$('#horizontal-list > li').on('click', function(){
+    let type = $(this).text()
+   
+    $.get(`/gener/${type}/${accessToken}`, async(data) =>  {
+        let num_of_tracks = data.playlists.items.length;
+        let count = 0;
+        let id = data.playlists.items[count].id;
+        let src_str = `https://open.spotify.com/embed/album/${id}`
+        Sources = []
+
+        while(count < num_of_tracks){
+            let id = data.playlists.items[count].id;
+            let songName = data.playlists.items[count].name
+            let artistName = data.playlists.items[count].owner.display_name
+            let src_str = `https://open.spotify.com/embed/playlist/${id}`
+            let isAdded = false
+            await $.get(`isAdded/${id}`, function(bool){
+                if(bool)
+                {
+                    Sources.push({id:id, artist:artistName, songName:songName, src:src_str,isAdded: true});
+                }
+                else{
+                    Sources.push({id:id, artist:artistName, songName:songName, src:src_str,isAdded: false});
+                }
+            })
+            count++;
+        }
+        render.render(Sources, '.container')
+    })
+})
+
 $('div').on('click', '#addToDB', function() {
     let divName = $(this).closest('.song')
     let id=divName.find('iframe').attr("id")
-    console.log(divName.parent());
+    
     if(divName.parent().attr('class')==='container'){
         let song = Sources.find(element => element.id === id)
         let check = song.isAdded
         if(!check){
             $.post("/saveSong", song, function(data){
                 Sources.find(element => element.id === id).isAdded = true
-                // render.singleRender(id)
                 render.render(Sources, '.container');
             })
         }
@@ -124,7 +148,6 @@ $('div').on('click', '#addToDB', function() {
         if(!check){
             $.post("/saveSong", song, function(data){
                 newR.find(element => element.id === id).isAdded = true
-                // render.singleRender(id)
                 render.render(newR, '.newReleases');
             })
         }
@@ -166,4 +189,35 @@ else{
         })
     }
 }
+})
+
+$('#dark').on('click', function() {
+    let on = 'fas fa-adjust fa-2x'
+    let off = "fas fa-sun fa-2x"
+
+    let c = $(this).attr('class')
+
+    if (c === off) {
+        $(this).removeClass()
+        $(this).addClass(on)
+        $(this).css("color","white")
+        $('body').css("background-color", "black");
+        $('body').css("color", "white");
+    } else {
+        $(this).removeClass()
+        $(this).addClass(off)
+        $(this).css("color","black")
+        $('body').css("background-color", "white");
+        $('body').css("color", "black");
+    }
+})
+
+$('.container').on('click', '.myplaylist', function(){
+    $.get('/playlist', function(playlist){
+        Sources = []
+        Sources = Object.values(playlist)
+        Sources = Sources.map(elem=>{return{id:elem.id,src:elem.src,isAdded:true}})
+
+        render.render(Sources, '.container')
+    })
 })
