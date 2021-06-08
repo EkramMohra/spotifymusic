@@ -7,7 +7,7 @@ const app = express()
 const port = process.env.PORT || 3500
 
 // Mongoose setup
-mongoose.connect('mongodb://localhost/SongList', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/SongList', { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

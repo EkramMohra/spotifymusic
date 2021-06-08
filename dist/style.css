@@ -34,6 +34,7 @@ body {
     margin: 30px;
     display: grid;
     grid-template-columns: 70% 30%;
+    position: absolute;
 }
 
 .container {
@@ -53,6 +54,7 @@ body {
     box-shadow: rgb(77, 74, 74) 0px -6px 7px, 0px -2px 12px rgb(77, 74, 74), 0px 2px 3px rgb(77, 74, 74), 0px 2px 3px rgb(77, 74, 74);
     border-radius: 10px;
     margin: 12px;
+    width: 300px;
     /* box-shadow: rgba(255, 252, 252, 0.25) 0px 54px 55px, rgba(245, 241, 241, 0.12) 0px -12px 30px, rgba(248, 245, 245, 0.12) 0px 4px 6px, rgba(243, 239, 239, 0.17) 0px 12px 13px, rgba(252, 247, 247, 0.09) 0px -3px 5px; */
 }
 
