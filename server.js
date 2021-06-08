@@ -7,7 +7,7 @@ const app = express()
 const port = process.env.PORT || 3500
 
 // Mongoose setup
-mongoose.connect('mongodb://localhost/SongList', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/SongList', { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -17,6 +17,6 @@ app.use(express.static(path.join(__dirname, 'node_modules')))
 app.use('/', api);
 
 
-app.listen(port, function(){
+app.listen(port, function() {
     console.log(`Running server on port ${port}`)
 })
